@@ -1,0 +1,9 @@
+{
+  "name": "laravel-coding-task",
+  "version": "0.1.0",
+  "description": "Coding task on Laravel",
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "bootstrap-datepicker": "~1.6.1"
+  }
+}
