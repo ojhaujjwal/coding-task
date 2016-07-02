@@ -6,19 +6,20 @@ use League\Csv\Reader;
 use League\Csv\Writer;
 use Ramsey\Uuid\Uuid;
 use ArrayObject;
+use SplFileObject;
 
 class PersonalDetailsStorage
 {
-    CONST FILE = __DIR__.'storage/personal-details.csv';
+    CONST FILE = __DIR__.'/../../storage/personal-details.csv';
 
     private $reader;
     private $writer;
     private $fields = [
-        'id',
+        'id',//0
         'name',
         'gender',
         'phone',
-        'email',
+        'email',//4
         'address',
         'nationality',
         'educational_background',
@@ -29,13 +30,41 @@ class PersonalDetailsStorage
      * Initializes the object
      * Creates instances of reader and writer
      *
-     * @param Reader|null $reader
-     * @param Writer|null $writer
+     * @param Reader $reader
+     * @param Writer $writer
      */
-    public function __construct(Reader $reader = null, Writer $writer = null)
+    public function __construct(Reader $reader, Writer $writer)
     {
-        $this->reader = $reader ? $reader : Reader::createFromPath(self::FILE);
-        $this->writer = $writer ? $writer : Writer::createFromPath(self::FILE);
+        $this->reader = $reader;
+        $this->writer = $writer;
+    }
+
+    /**
+     * Return a new instance from a path string
+     *
+     * @param mixed $file File path
+     *
+     * @return self
+     */
+    public static function createFromPath($file = self::FILE)
+    {
+        $reader = Reader::createFromPath($file);
+        $writer = Writer::createFromPath($file, 'a');
+        return new self($reader, $writer);
+    }
+
+    /**
+     * Return a new instance from a SplFileObject
+     *
+     * @param SplFileObject $file
+     *
+     * @return self
+     */
+    public static function createFromFileObject(SplFileObject $file)
+    {
+        $reader = Reader::createFromFileObject($file);
+        $writer = Writer::createFromFileObject($file);
+        return new self($reader, $writer);
     }
 
     /**
@@ -44,7 +73,7 @@ class PersonalDetailsStorage
      * @param ArrayObject $personalDetails
      * @return void
      */
-    public function create(ArrayObject $personalDetails)
+    public function store(ArrayObject $personalDetails)
     {
         $personalDetails['id'] = Uuid::uuid4()->toString();
         $this->writer->insertOne($this->objectToRow($personalDetails));
@@ -60,6 +89,21 @@ class PersonalDetailsStorage
     {
         foreach($this->reader->fetch() as $row) {
             if ($row[0] === $id) {
+                return $this->rowToObject($row);
+            }
+        }
+    }
+
+    /**
+     * Find a record by email
+     *
+     * @param string $email
+     * @return ArrayObject|null
+     */
+    public function findByEmail($email)
+    {
+        foreach($this->reader->fetch() as $row) {
+            if (isset($row[4]) && $row[4] === $email) {
                 return $this->rowToObject($row);
             }
         }
