@@ -14,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Validator::extend('PersonalDetails.Gender', 'App\Validators\PersonalDetails\Gender');
+        \Validator::extend('PersonalDetails.PreferredContactMode', 'App\Validators\PersonalDetails\PreferredContactMode');
+        \Validator::extend('PersonalDetails.EmailExists', function($attribute, $value) {
+            /** @var PersonalDetailsStorage $storage */
+            $storage = $this->app->make(PersonalDetailsStorage::class);
+            return is_null($storage->findByEmail($value));
+        });
     }
 
     /**
