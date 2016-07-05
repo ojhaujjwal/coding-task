@@ -3,13 +3,13 @@
 return [
     'personal_details' => [
         'genders' => [
-            'male' => 'm',
-            'female' => 'f'
+            'm' => 'male',
+            'f' => 'female'
         ],
         'contact_modes' => [
-            'phone' => 'p',
-            'email' => 'e',
-            'none' => 'n'
+            'p' => 'phone',
+            'e' => 'email',
+            'n' => 'none'
         ]
     ]
 ];

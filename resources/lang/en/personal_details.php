@@ -20,5 +20,10 @@ return [
         'email' => 'email',
         'none' => 'none'
     ],
-    'add' => 'Add'
+    'add' => 'Add',
+    'SN' => 'S.N',
+    'title'=> [
+        'create' => 'Add Personal Details',
+        'list' => 'List Personal Details Records'
+    ]
 ];

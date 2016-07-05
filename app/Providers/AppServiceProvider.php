@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\PersonalDetailsStorage;
+use Pagerfanta\Pagerfanta;
+use App\Paginator\Adapter\PersonalDetailsStorageAdapter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,8 +32,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(PersonalDetailsStorage::class, function ($app) {
+        $this->app->singleton(PersonalDetailsStorage::class, function () {
             return PersonalDetailsStorage::createFromPath();
+        });
+        $this->app->singleton('PersonalDetails\Pagerfanta', function() {
+            $adapter = new PersonalDetailsStorageAdapter($this->app->make(PersonalDetailsStorage::class));
+            return new Pagerfanta($adapter);
         });
     }
 }

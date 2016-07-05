@@ -12,7 +12,10 @@
 
 @section('content')
 
-<div class="panel-body">
+<div class="container">
+    <div class="page-header">
+        <h2>{{trans('personal_details.title.create')}}</h2>
+    </div>
     <!-- Display Validation Errors -->
     @include('common.errors')
 
@@ -35,7 +38,7 @@
                 <div class="col-sm-8">
                     <select name="gender" id="gender" class="form-control" required>
                         @foreach($genders as $key => $value)
-                            <option value="{{$value}}">{{trans('personal_details.gender.' . $key)}}</option>
+                            <option value="{{$key}}">{{trans('personal_details.gender.' . $value)}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -76,7 +79,7 @@
                 <label for="nationality" class="col-sm-4 control-label">{{trans('personal_details.label.nationality')}}</label>
 
                 <div class="col-sm-8">
-                    <select name="nationality" id="nationality" class="form-control" nationality>
+                    <select name="nationality" id="nationality" class="form-control" required>
                         @foreach($countries as $countryCode => $country)
                             <option value="{{$countryCode}}">{{$country}}</option>
                         @endforeach
@@ -98,7 +101,7 @@
                 <div class="col-sm-8">
                     <select name="preferred_contact_mode" id="preferred_contact_mode" class="form-control" required>
                         @foreach($contactModes as $key => $value)
-                            <option value="{{$value}}">{{trans('personal_details.contact_modes.' . $key)}}</option>
+                            <option value="{{$key}}">{{trans('personal_details.contact_modes.' . $value)}}</option>
                         @endforeach
                     </select>
                 </div>

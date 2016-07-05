@@ -86,7 +86,7 @@ class PersonalDetailsStorageTest extends TestCase
         // create a new instance to test if records are appended or overridden
         $storage = PersonalDetailsStorage::createFromPath($file);
         $storage->store(new ArrayObject(['name' => 'Record 2']));
-        $this->assertEquals(2, iterator_count($storage->all()));
+        $this->assertEquals(2, count($storage));
     }
 
     public function testFindByEmail()
@@ -101,5 +101,51 @@ class PersonalDetailsStorageTest extends TestCase
             $this->assertEquals($record['email'], $storage->findByEmail($record['email'])['email']);
         }
         $this->assertNull($storage->findByEmail('asdf@test.com'));
+    }
+
+    public function testCountRecords()
+    {
+        $tempFile = new SplTempFileObject();
+        $storage = PersonalDetailsStorage::createFromFileObject($tempFile);
+        $records = [new ArrayObject(['' => 32]), new ArrayObject(['id' => 63])];
+        foreach($records as $record) {
+            $storage->store($record);
+        }
+        $this->assertEquals(2, count($storage));
+    }
+
+    public function testGetSliceOfResults()
+    {
+        $tempFile = new SplTempFileObject();
+        $storage = PersonalDetailsStorage::createFromFileObject($tempFile);
+        $records = [
+            new ArrayObject(['id' => 45]),
+            new ArrayObject(['id' => 83]),
+            new ArrayObject(['id' => 63]),
+            new ArrayObject(['id' => 53])
+        ];
+        foreach($records as $record) {
+            $storage->store($record);
+        }
+
+        $slicedRecords = $storage->getSlice(1, 2);
+
+        $count = 0;
+        foreach($slicedRecords as $i => $record) {
+            $this->assertEquals($records[1 + $i]['id'], $record['id']);
+            $count++;
+        }
+
+        $this->assertEquals(2, $count);
+
+        // there are only 4 records in total
+        // so should return only 1 record
+        $slicedRecords = iterator_to_array($storage->getSlice(3, 2));
+        $this->assertCount(1, $slicedRecords);
+        $this->assertEquals($records[3]['id'], $slicedRecords[0]['id']);
+
+        // there are only 4 records in total
+        // so can't find any record after 3rd offset
+        $this->assertEquals(0, iterator_count($storage->getSlice(4, 2)));
     }
 }

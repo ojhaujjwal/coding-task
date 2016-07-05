@@ -9,7 +9,9 @@
         "laravel/framework": "5.2.*",
         "league/csv": "^8.1",
         "ramsey/uuid": "^3.4",
-        "symfony/intl": "^3.1"
+        "symfony/intl": "^3.1",
+        "pagerfanta/pagerfanta": "^1.0",
+        "nesbot/carbon": "^1.21"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

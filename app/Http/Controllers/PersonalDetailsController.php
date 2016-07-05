@@ -8,12 +8,22 @@ use App\Http\Requests\StorePersonalDetailsRequest;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\Intl\Intl;
 use App\Services\PersonalDetailsStorage;
+use Pagerfanta\View\TwitterBootstrap3View;
 
 /**
 * 
 */
 class PersonalDetailsController extends Controller
 {
+
+    private function view($view = null, $data = [])
+    {
+        return view($view, $data, [
+            'genders' => \Config::get('constants.personal_details.genders'),
+            'contactModes' => \Config::get('constants.personal_details.contact_modes'),
+            'countries' => Intl::getRegionBundle()->getCountryNames(\Lang::getLocale())
+        ]);
+    }
 	
     /**
      * Show one detail by id
@@ -25,35 +35,42 @@ class PersonalDetailsController extends Controller
      */
     public function showDetail(PersonalDetailsStorage $storage, $id)
     {
-        return view('personal_details.view', ['personalDetails' => $storage->get($id)]);
+        return $this->view('personal_details.view', ['personalDetails' => $storage->get($id)]);
     }
 
 
     /**
-     * Show the list
+     * Show the paginated list
      *
-     * @param PersonalDetailsStorage $storage
+     * @param Request $request
      *
      * @return Response
      */
-    public function listAll(PersonalDetailsStorage $storage)
+    public function listAll(Request $request)
     {
-        return view('personal_details.list', ['records' => $storage->all()]);
+        /** @var \Pagerfanta\Pagerfanta $pagerfanta */
+        $pagerfanta = \App::make('PersonalDetails\Pagerfanta');
+        $pagerfanta->setCurrentPage($request->get('page', 1));
+        $pagerfantaBarView = new TwitterBootstrap3View();
+        $pagerfantaBarHtml = $pagerfantaBarView->render($pagerfanta, function($page) {
+            return route('personal-details.list', ['page' => $page]);
+        });
+
+        return $this->view('personal_details.list', [
+            'records' => $pagerfanta->getCurrentPageResults(),
+            'pagerfantaBarHtml' => $pagerfantaBarHtml
+        ]);
     }
 
 
     /**
      * Displays form
      *
-     * @return Response 
+     * @return Response
      */
     public function create()
     {
-        return view('personal_details.create', [
-            'genders' => \Config::get('constants.personal_details.genders'),
-            'contactModes' => \Config::get('constants.personal_details.contact_modes'),
-            'countries' => Intl::getRegionBundle()->getCountryNames(\Lang::getLocale())
-        ]);
+        return $this->view('personal_details.create');
     }
 
     /**

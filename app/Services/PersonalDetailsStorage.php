@@ -7,8 +7,9 @@ use League\Csv\Writer;
 use Ramsey\Uuid\Uuid;
 use ArrayObject;
 use SplFileObject;
+use Countable;
 
-class PersonalDetailsStorage
+class PersonalDetailsStorage implements Countable
 {
     CONST FILE = __DIR__.'/../../storage/personal-details.csv';
 
@@ -22,6 +23,7 @@ class PersonalDetailsStorage
         'email',//4
         'address',
         'nationality',
+        'dob',
         'educational_background',
         'preferred_contact_mode'
     ];
@@ -117,6 +119,33 @@ class PersonalDetailsStorage
     public function all()
     {
         foreach($this->reader->fetch() as $row) {
+            yield $this->rowToObject($row);
+        }
+    }
+
+    /**
+     * Counts the total records
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return iterator_count($this->reader->fetch());
+    }
+
+    /**
+     * Returns a slice of the results.
+     *
+     * @param integer $offset The offset.
+     * @param integer $count required items in the slice
+     *
+     * @return \Generator<ArrayObject> The slice.
+     */
+    public function getSlice($offset, $count)
+    {
+        for ($i = 0; $i < $count;$i++) {
+            $row = $this->reader->fetchOne($offset + $i);
+            if (!count($row)) continue;
             yield $this->rowToObject($row);
         }
     }
