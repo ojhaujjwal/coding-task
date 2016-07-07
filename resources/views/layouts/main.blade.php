@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel Coding Task</title>
+    <title>{{trans('main.title')}}</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -32,10 +32,31 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Home
+                    {{trans('main.menu.home')}}
                 </a>
             </div>
-
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{trans('main.menu.personal_details.title')}}
+                            <span class="caret"></span>
+                        </a>
+                      <ul class="dropdown-menu">                      
+                            <li>
+                                <a href="{{route('personal-details.list')}}">
+                                    {{trans('main.menu.personal_details.records')}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('personal-details.create')}}">
+                                    {{trans('main.menu.personal_details.create')}}
+                                </a>
+                            </li>
+                      </ul>
+                    </li>                    
+                </ul>
+            </div>
         </div>
     </nav>
 

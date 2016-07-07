@@ -36,7 +36,7 @@
                 </table>
             </div>
 
-            {{!! $pagerfantaBarHtml !!}}
+            {!! $pagerfantaBarHtml !!}
         @endif
     </div>
 @endsection
