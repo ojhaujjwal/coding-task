@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Services\PersonalDetailsStorage;
 use Pagerfanta\Pagerfanta;
 use App\Paginator\Adapter\PersonalDetailsStorageAdapter;
+use SplTempFileObject;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(PersonalDetailsStorage::class, function () {
+            if (\App::environment('testing')) {
+                return PersonalDetailsStorage::createFromFileObject(new SplTempFileObject());
+            }
+
             return PersonalDetailsStorage::createFromPath();
         });
         $this->app->singleton('PersonalDetails\Pagerfanta', function() {

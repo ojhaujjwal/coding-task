@@ -38,10 +38,10 @@ class PersonalDetailsStorageAdapter implements AdapterInterface
      * @param int $offset The offset.
      * @param int $length The length.
      *
-     * @return \Iterator The slice.
+     * @return array The slice.
      */
     function getSlice($offset, $length)
     {
-        return $this->storage->getSlice($offset, $length);
+        return iterator_to_array($this->storage->getSlice($offset, $length));
     }
 }

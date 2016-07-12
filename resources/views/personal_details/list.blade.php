@@ -30,7 +30,11 @@
                             <td>{{$record['phone']}}</td>
                             <td>{{$record['email']}}</td>
                             <td>{{$countries[$record['nationality']]}}</td>
-                            <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $record['dob'])->age}}</td>
+                            <td>
+                                @if($record['dob'])
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d', $record['dob'])->age}}
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>

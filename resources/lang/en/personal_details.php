@@ -24,6 +24,7 @@ return [
     'SN' => 'S.N',
     'title'=> [
         'create' => 'Add Personal Details',
-        'list' => 'List Personal Details Records'
+        'list' => 'List Personal Details Records',
+        'view' => 'View Record'
     ]
 ];
