@@ -25,10 +25,10 @@ class ValidatorsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('App\Validators\PersonalDetails\Gender', function () {
-            return new InArrayValidator(array_values(\Config::get('constants.personal_details.genders')));
+            return new InArrayValidator(array_keys(\Config::get('constants.personal_details.genders')));
         });
         $this->app->singleton('App\Validators\PersonalDetails\PreferredContactMode', function () {
-            return new InArrayValidator(array_values(\Config::get('constants.personal_details.contact_modes')));
+            return new InArrayValidator(array_keys(\Config::get('constants.personal_details.contact_modes')));
         });
     }
 }
