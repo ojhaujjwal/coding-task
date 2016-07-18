@@ -5,14 +5,14 @@ namespace App\Validators;
 class InArrayValidator
 {
     /**
-     * Haystack of possible values
+     * Haystack of possible values.
      *
      * @var array
      */
     protected $haystack;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * To prevent "asdf" being converted to 0
      * and returning a false positive if 0 is in haystack, we type cast

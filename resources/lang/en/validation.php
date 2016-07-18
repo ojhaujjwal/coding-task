@@ -111,6 +111,6 @@ return [
 
     'attributes' => [],
     'personal_details' => [
-        '_email_exists' => 'Email Address already exists. Please use another email address.'
-    ]
+        '_email_exists' => 'Email Address already exists. Please use another email address.',
+    ],
 ];

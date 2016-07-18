@@ -10,23 +10,19 @@ use Symfony\Component\Intl\Intl;
 use App\Services\PersonalDetailsStorage;
 use Pagerfanta\View\TwitterBootstrap3View;
 
-/**
-* 
-*/
 class PersonalDetailsController extends Controller
 {
-
     private function view($view = null, $data = [])
     {
         return view($view, $data, [
             'genders' => \Config::get('constants.personal_details.genders'),
             'contactModes' => \Config::get('constants.personal_details.contact_modes'),
-            'countries' => Intl::getRegionBundle()->getCountryNames(\Lang::getLocale())
+            'countries' => Intl::getRegionBundle()->getCountryNames(\Lang::getLocale()),
         ]);
     }
-	
+
     /**
-     * Show one detail by id
+     * Show one detail by id.
      *
      * @param  int  $id
      * @param PersonalDetailsStorage $storage
@@ -38,9 +34,8 @@ class PersonalDetailsController extends Controller
         return $this->view('personal_details.view', ['personalDetails' => $storage->get($id)]);
     }
 
-
     /**
-     * Show the paginated list
+     * Show the paginated list.
      *
      * @param Request $request
      *
@@ -52,19 +47,18 @@ class PersonalDetailsController extends Controller
         $pagerfanta = \App::make('PersonalDetails\Pagerfanta');
         $pagerfanta->setCurrentPage($request->get('page', 1));
         $pagerfantaBarView = new TwitterBootstrap3View();
-        $pagerfantaBarHtml = $pagerfantaBarView->render($pagerfanta, function($page) {
+        $pagerfantaBarHtml = $pagerfantaBarView->render($pagerfanta, function ($page) {
             return route('personal-details.list', ['page' => $page]);
         });
 
         return $this->view('personal_details.list', [
             'records' => $pagerfanta->getCurrentPageResults(),
-            'pagerfantaBarHtml' => $pagerfantaBarHtml
+            'pagerfantaBarHtml' => $pagerfantaBarHtml,
         ]);
     }
 
-
     /**
-     * Displays form
+     * Displays form.
      *
      * @return Response
      */
@@ -74,7 +68,7 @@ class PersonalDetailsController extends Controller
     }
 
     /**
-     * Add New Personal Detail
+     * Add New Personal Detail.
      *
      * @param StorePersonalDetailsRequest $request
      * @param PersonalDetailsStorage $storage

@@ -13,7 +13,7 @@ class PersonalDetailsStorageAdapter implements AdapterInterface
     private $storage;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param PersonalDetailsStorage $storage
      */
@@ -40,7 +40,7 @@ class PersonalDetailsStorageAdapter implements AdapterInterface
      *
      * @return array The slice.
      */
-    function getSlice($offset, $length)
+    public function getSlice($offset, $length)
     {
         return iterator_to_array($this->storage->getSlice($offset, $length));
     }

@@ -12,7 +12,6 @@ use SplTempFileObject;
 
 class PersonalDetailsStorageTest extends TestCase
 {
-
     public function testFindRecordById()
     {
         $reader = $this->createMock(Reader::class);
@@ -38,7 +37,7 @@ class PersonalDetailsStorageTest extends TestCase
 
         $rows = [
             [87],
-            [78]
+            [78],
         ];
 
         $reader->expects($this->exactly(1))
@@ -49,7 +48,7 @@ class PersonalDetailsStorageTest extends TestCase
         $records = $storage->all();
 
         $count = 0;
-        foreach($records as $i => $record) {
+        foreach ($records as $i => $record) {
             $this->assertEquals($rows[$i][0], $record['id']);
             $count++;
         }
@@ -73,8 +72,8 @@ class PersonalDetailsStorageTest extends TestCase
 
     public function testCreatingNewRecordDoesNotRemovePreviousRecords()
     {
-        $file = __DIR__ . '/../../resources/personal-details.csv';
-        if (!file_exists($file)) {
+        $file = __DIR__.'/../../resources/personal-details.csv';
+        if (! file_exists($file)) {
             touch($file);
         }
         $reader = $this->createMock(Reader::class);
@@ -94,10 +93,10 @@ class PersonalDetailsStorageTest extends TestCase
         $tempFile = new SplTempFileObject();
         $storage = PersonalDetailsStorage::createFromFileObject($tempFile);
         $records = [new ArrayObject(['email' => 'a1@test.com']), new ArrayObject(['email' => 'b1@test.com'])];
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $storage->store($record);
         }
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $this->assertEquals($record['email'], $storage->findByEmail($record['email'])['email']);
         }
         $this->assertNull($storage->findByEmail('asdf@test.com'));
@@ -108,7 +107,7 @@ class PersonalDetailsStorageTest extends TestCase
         $tempFile = new SplTempFileObject();
         $storage = PersonalDetailsStorage::createFromFileObject($tempFile);
         $records = [new ArrayObject(['' => 32]), new ArrayObject(['id' => 63])];
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $storage->store($record);
         }
         $this->assertEquals(2, count($storage));
@@ -122,16 +121,16 @@ class PersonalDetailsStorageTest extends TestCase
             new ArrayObject(['id' => 45]),
             new ArrayObject(['id' => 83]),
             new ArrayObject(['id' => 63]),
-            new ArrayObject(['id' => 53])
+            new ArrayObject(['id' => 53]),
         ];
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $storage->store($record);
         }
 
         $slicedRecords = $storage->getSlice(1, 2);
 
         $count = 0;
-        foreach($slicedRecords as $i => $record) {
+        foreach ($slicedRecords as $i => $record) {
             $this->assertEquals($records[1 + $i]['id'], $record['id']);
             $count++;
         }

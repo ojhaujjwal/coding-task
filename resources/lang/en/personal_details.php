@@ -1,4 +1,5 @@
 <?php
+
 return [
     'label' => [
         'name' => 'Name',
@@ -13,18 +14,18 @@ return [
     ],
     'gender' => [
         'male' => 'Male',
-        'female' => 'Female'
+        'female' => 'Female',
     ],
     'contact_modes' => [
         'phone' => 'Phone',
         'email' => 'email',
-        'none' => 'none'
+        'none' => 'none',
     ],
     'add' => 'Add',
     'SN' => 'S.N',
-    'title'=> [
+    'title' => [
         'create' => 'Add Personal Details',
         'list' => 'List Personal Details Records',
-        'view' => 'View Record'
-    ]
+        'view' => 'View Record',
+    ],
 ];
