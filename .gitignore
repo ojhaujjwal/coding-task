@@ -6,3 +6,4 @@ Homestead.json
 .env
 storage/personal-details.csv
 public/lib
+build
