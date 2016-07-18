@@ -1,6 +1,7 @@
 Coding task for Software Engineer
 ===================================
 [![Master Branch Build Status](https://travis-ci.org/ojhaujjwal/coding-task.svg?branch=master)](http://travis-ci.org/ojhaujjwal/coding-task)
+[![Code Climate](https://codeclimate.com/github/ojhaujjwal/coding-task/badges/gpa.svg)](https://codeclimate.com/github/ojhaujjwal/coding-task)
 
 This is a coding task from [bit.ly/sw-eng-task](bit.ly/sw-eng-task) developed using [Laravel 5](https://laravel.com/docs/5.2).
 
