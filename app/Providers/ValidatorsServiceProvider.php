@@ -14,7 +14,6 @@ class ValidatorsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
     }
 
     /**

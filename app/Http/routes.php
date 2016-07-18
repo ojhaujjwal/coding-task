@@ -16,18 +16,18 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'personal-details', 'as' => 'personal-details.'], function () {
-	/**
-	 * Add New Personal Detail
-	 */
-	Route::get('/create', 'PersonalDetailsController@create')
-		->name('create');
+    /*
+     * Add New Personal Detail
+     */
+    Route::get('/create', 'PersonalDetailsController@create')
+        ->name('create');
 
-	Route::post('/create', 'PersonalDetailsController@store')
-		->name('store');
+    Route::post('/create', 'PersonalDetailsController@store')
+        ->name('store');
 
-	Route::get('/{id}', 'PersonalDetailsController@showDetail')
-		->name('view');
+    Route::get('/{id}', 'PersonalDetailsController@showDetail')
+        ->name('view');
 
-	Route::get('/', 'PersonalDetailsController@listAll')
-		->name('list');
+    Route::get('/', 'PersonalDetailsController@listAll')
+        ->name('list');
 });

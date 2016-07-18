@@ -4,12 +4,12 @@ return [
     'personal_details' => [
         'genders' => [
             'm' => 'male',
-            'f' => 'female'
+            'f' => 'female',
         ],
         'contact_modes' => [
             'p' => 'phone',
             'e' => 'email',
-            'n' => 'none'
-        ]
-    ]
+            'n' => 'none',
+        ],
+    ],
 ];

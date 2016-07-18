@@ -11,26 +11,26 @@ use Countable;
 
 class PersonalDetailsStorage implements Countable
 {
-    CONST FILE = __DIR__.'/../../storage/personal-details.csv';
+    const FILE = __DIR__.'/../../storage/personal-details.csv';
 
     private $reader;
     private $writer;
     private $fields = [
-        'id',//0
+        'id', //0
         'name',
         'gender',
         'phone',
-        'email',//4
+        'email', //4
         'address',
         'nationality',
         'dob',
         'educational_background',
-        'preferred_contact_mode'
+        'preferred_contact_mode',
     ];
 
     /**
      * Initializes the object
-     * Creates instances of reader and writer
+     * Creates instances of reader and writer.
      *
      * @param Reader $reader
      * @param Writer $writer
@@ -42,7 +42,7 @@ class PersonalDetailsStorage implements Countable
     }
 
     /**
-     * Return a new instance from a path string
+     * Return a new instance from a path string.
      *
      * @param mixed $file File path
      *
@@ -52,11 +52,12 @@ class PersonalDetailsStorage implements Countable
     {
         $reader = Reader::createFromPath($file);
         $writer = Writer::createFromPath($file, 'a');
+
         return new self($reader, $writer);
     }
 
     /**
-     * Return a new instance from a SplFileObject
+     * Return a new instance from a SplFileObject.
      *
      * @param SplFileObject $file
      *
@@ -66,11 +67,12 @@ class PersonalDetailsStorage implements Countable
     {
         $reader = Reader::createFromFileObject($file);
         $writer = Writer::createFromFileObject($file);
+
         return new self($reader, $writer);
     }
 
     /**
-     * Stores a record as a CSV row in CSV file
+     * Stores a record as a CSV row in CSV file.
      *
      * @param ArrayObject $personalDetails
      * @return void
@@ -82,14 +84,14 @@ class PersonalDetailsStorage implements Countable
     }
 
     /**
-     * Find a record by id
+     * Find a record by id.
      *
      * @param string $id
      * @return ArrayObject|null
      */
     public function get($id)
     {
-        foreach($this->reader->fetch() as $row) {
+        foreach ($this->reader->fetch() as $row) {
             if ($row[0] === $id) {
                 return $this->rowToObject($row);
             }
@@ -97,14 +99,14 @@ class PersonalDetailsStorage implements Countable
     }
 
     /**
-     * Find a record by email
+     * Find a record by email.
      *
      * @param string $email
      * @return ArrayObject|null
      */
     public function findByEmail($email)
     {
-        foreach($this->reader->fetch() as $row) {
+        foreach ($this->reader->fetch() as $row) {
             if (isset($row[4]) && $row[4] === $email) {
                 return $this->rowToObject($row);
             }
@@ -112,19 +114,19 @@ class PersonalDetailsStorage implements Countable
     }
 
     /**
-     * Fetch the next record from the CSV file
+     * Fetch the next record from the CSV file.
      *
      * @return \Generator<ArrayObject>
      */
     public function all()
     {
-        foreach($this->reader->fetch() as $row) {
+        foreach ($this->reader->fetch() as $row) {
             yield $this->rowToObject($row);
         }
     }
 
     /**
-     * Counts the total records
+     * Counts the total records.
      *
      * @return int
      */
@@ -136,22 +138,24 @@ class PersonalDetailsStorage implements Countable
     /**
      * Returns a slice of the results.
      *
-     * @param integer $offset The offset.
-     * @param integer $count required items in the slice
+     * @param int $offset The offset.
+     * @param int $count required items in the slice
      *
      * @return \Generator<ArrayObject> The slice.
      */
     public function getSlice($offset, $count)
     {
-        for ($i = 0; $i < $count;$i++) {
+        for ($i = 0; $i < $count; $i++) {
             $row = $this->reader->fetchOne($offset + $i);
-            if (!count($row)) continue;
+            if (! count($row)) {
+                continue;
+            }
             yield $this->rowToObject($row);
         }
     }
 
     /**
-     * Converts CSV row to PersonalDetails ArrayObject
+     * Converts CSV row to PersonalDetails ArrayObject.
      *
      * @param array $row
      * @return ArrayObject
@@ -159,24 +163,25 @@ class PersonalDetailsStorage implements Countable
     private function rowToObject($row)
     {
         $ob = new ArrayObject();
-        foreach($this->fields as $i => $field) {
-            if (!isset($row[$i])) break;
+        foreach ($this->fields as $i => $field) {
+            if (! isset($row[$i])) {
+                break;
+            }
             $ob[$field] = $row[$i];
         }
 
         return $ob;
     }
 
-
     /**
-     * Converts PersonalDetails ArrayObject to CSV row
+     * Converts PersonalDetails ArrayObject to CSV row.
      *
      * @param ArrayObject $ob
      * @return array
      */
     private function objectToRow($ob)
     {
-        return array_map(function($field) use ($ob) {
+        return array_map(function ($field) use ($ob) {
             return isset($ob[$field]) ? $ob[$field] : '';
         }, $this->fields);
     }

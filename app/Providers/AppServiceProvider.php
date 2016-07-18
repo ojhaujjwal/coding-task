@@ -19,9 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         \Validator::extend('PersonalDetails.Gender', 'App\Validators\PersonalDetails\Gender');
         \Validator::extend('PersonalDetails.PreferredContactMode', 'App\Validators\PersonalDetails\PreferredContactMode');
-        \Validator::extend('PersonalDetails.EmailExists', function($attribute, $value) {
+        \Validator::extend('PersonalDetails.EmailExists', function ($attribute, $value) {
             /** @var PersonalDetailsStorage $storage */
             $storage = $this->app->make(PersonalDetailsStorage::class);
+
             return is_null($storage->findByEmail($value));
         });
     }
@@ -40,8 +41,9 @@ class AppServiceProvider extends ServiceProvider
 
             return PersonalDetailsStorage::createFromPath();
         });
-        $this->app->singleton('PersonalDetails\Pagerfanta', function() {
+        $this->app->singleton('PersonalDetails\Pagerfanta', function () {
             $adapter = new PersonalDetailsStorageAdapter($this->app->make(PersonalDetailsStorage::class));
+
             return new Pagerfanta($adapter);
         });
     }
