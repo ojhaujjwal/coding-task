@@ -28,4 +28,7 @@ return [
         'list' => 'List Personal Details Records',
         'view' => 'View Record',
     ],
+    'messages' => [
+        'no_records' => 'There aren\'t any records.'
+    ]
 ];
