@@ -11,6 +11,7 @@ return [
         'dob' => 'Date Of Birth',
         'preferred_contact_mode' => 'Preferred Contact Mode',
         'educational_background' => 'Educational Background',
+        'age' => 'Age',
     ],
     'gender' => [
         'male' => 'Male',
@@ -29,6 +30,6 @@ return [
         'view' => 'View Record',
     ],
     'messages' => [
-        'no_records' => 'There aren\'t any records.'
-    ]
+        'no_records' => 'There aren\'t any records.',
+    ],
 ];
