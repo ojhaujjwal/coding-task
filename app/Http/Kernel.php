@@ -59,5 +59,5 @@ class Kernel extends HttpKernel
         'Illuminate\Foundation\Bootstrap\RegisterFacades',
         'Illuminate\Foundation\Bootstrap\RegisterProviders',
         'Illuminate\Foundation\Bootstrap\BootProviders',
-    ];    
+    ];
 }
