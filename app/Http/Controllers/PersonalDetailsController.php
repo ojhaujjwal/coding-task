@@ -32,7 +32,8 @@ class PersonalDetailsController extends Controller
     public function showDetail(PersonalDetailsStorage $storage, $id)
     {
         $record = $storage->get($id);
-        \Log::info('Showing personal details record: ' . $record['id']);
+        \Log::info('Showing personal details record: '.$record['id']);
+
         return $this->view('personal_details.view', ['personalDetails' => $record]);
     }
 
@@ -52,7 +53,7 @@ class PersonalDetailsController extends Controller
         $pagerfantaBarHtml = $pagerfantaBarView->render($pagerfanta, function ($page) {
             return route('personal-details.list', ['page' => $page]);
         });
-        \Log::info('Showing personal details list of records page ' . $pagerfanta->getCurrentPage());
+        \Log::info('Showing personal details list of records page '.$pagerfanta->getCurrentPage());
 
         return $this->view('personal_details.list', [
             'records' => $pagerfanta->getCurrentPageResults(),
@@ -68,6 +69,7 @@ class PersonalDetailsController extends Controller
     public function create()
     {
         \Log::info('Showing personal details record form');
+
         return $this->view('personal_details.create');
     }
 
@@ -84,7 +86,7 @@ class PersonalDetailsController extends Controller
         $personalDetails = new ArrayObject($request->all());
         $storage->store($personalDetails);
 
-        \Log::info('Saved personal details record:' . $personalDetails['id']);
+        \Log::info('Saved personal details record:'.$personalDetails['id']);
 
         if ($request->wantsJson()) {
             return Response::json($personalDetails);
