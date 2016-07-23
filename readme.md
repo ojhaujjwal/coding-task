@@ -6,19 +6,19 @@ Coding task for Software Engineer
 
 This is a coding task from [bit.ly/sw-eng-task](bit.ly/sw-eng-task) developed using [Laravel 5](https://laravel.com/docs/5.2).
 
-##Requirements
+## Requirements
 * PHP >= 5.5.9
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
 
-##Installation
+## Installation
 * Clone the repo.
 * Run `composer install`
 * Run `bower install`
 
-##Directory Permissions
+## Directory Permissions
 After installation, you may need to configure some permissions. Directories within the storage and the bootstrap/cache directories should be writable by your web server or the application will not run.
 
 ## Docker
@@ -46,3 +46,6 @@ You can also run the commands like phpunit directly using:
 ```bash
 $ docker exec {Workspace-Container-Name} vendor/bin/phpunit
 ```
+
+## Demo
+For demo, you can visit [188.166.134.66](http://188.166.134.66/).
