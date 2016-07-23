@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PersonalDetailsController@listAll');
 
 Route::group(['prefix' => 'personal-details', 'as' => 'personal-details.'], function () {
     /*
