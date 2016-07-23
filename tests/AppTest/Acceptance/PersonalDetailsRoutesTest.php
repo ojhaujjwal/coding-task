@@ -23,6 +23,12 @@ class PersonalDetailsRoutesTest extends \TestCase
         $this->instance(PersonalDetailsStorage::class, $this->storage);
     }
 
+    public function testHomePageDisplaysPersonalDetailsRecords()
+    {
+        $this->visit('/')
+            ->see(\Lang::get('personal_details.title.list'));
+    }
+
     public function testListAllDoesNotReturnAnyRecordAtFirst()
     {
         $this->visit('/personal-details')
