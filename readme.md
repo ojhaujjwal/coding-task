@@ -47,5 +47,8 @@ You can also run the commands like phpunit directly using:
 $ docker exec {Workspace-Container-Name} vendor/bin/phpunit
 ```
 
+## Database
+This application is not bassed on any DBMS like MySQL, MongoDb etc. It uses csv file `storage/personal-details.csv` for storing the records. To read/write CSV files, a popular composer package [league/csv](https://github.com/thephpleague/csv) is used. 
+
 ## Demo
 For demo, you can visit [188.166.134.66](http://188.166.134.66/).
