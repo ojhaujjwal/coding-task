@@ -49,6 +49,12 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
+        ],
+        "setup": [
+            "php -r \"copy('.env.example', '.env');\"",
+            "php -r \"touch('storage/personal-details.csv');\"",
+            "php artisan key:generate",
+            "bower install"
         ]
     },
     "config": {

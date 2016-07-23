@@ -16,7 +16,7 @@ This is a coding task from [bit.ly/sw-eng-task](bit.ly/sw-eng-task) developed us
 ## Installation
 * Clone the repo.
 * Run `composer install`
-* Run `bower install`
+* Run `composer setup`
 
 ## Directory Permissions
 After installation, you may need to configure some permissions. Directories within the storage and the bootstrap/cache directories should be writable by your web server or the application will not run.
